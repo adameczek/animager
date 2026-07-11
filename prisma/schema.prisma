@@ -56,21 +56,35 @@ model Session {
 }
 
 model Pet {
-  id           String    @id @default(cuid())
+  id           String     @id @default(cuid())
   name         String
-  age          Int?
   breed        String?
   specialNotes String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  birthDate    DateTime?
   users        User[]
-
   dietTypeId   String?
-  dietType     DietType? @relation(fields: [dietTypeId], references: [id])
+  dietType     DietType?  @relation(fields: [dietTypeId], references: [id])
   vetVisits    VetVisit[]
+
+  pictures     Picture[]  @relation("PetPictures")
+  avatarId     String?    @unique
+  avatar       Picture?   @relation("PetAvatar", fields: [avatarId], references: [id])
 }
 
+model Picture {
+  id        String   @id @default(cuid())
+  url       String
+  filename  String?
+  mimeType  String?
+  createdAt DateTime @default(now())
+
+  petId     String?
+  pet       Pet?     @relation("PetPictures", fields: [petId], references: [id], onDelete: Cascade)
+
+  avatarOf  Pet?     @relation("PetAvatar")
+}
 model DietType {
   id          String   @id @default(cuid())
   name        String   @unique
