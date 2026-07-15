@@ -33,7 +33,7 @@ export default function AnimalsBackground({ icons }: { icons: string[] }) {
             return {
               id,
               direction: id % 2 === 0 ? "right" : "left",
-              speed: 150 + (id % 3) * 10,
+              speed: 1000 + (id % 3) * 10,
             };
           },
         );
