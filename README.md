@@ -7,6 +7,7 @@ This is web application for managing your household animals. Written using NextJ
 - add valid links to sidebar
 - settings page
 - write tests
+- create dockerfile
 
 ## Getting Started
 
